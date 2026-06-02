@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemUserController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\LoanUserController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('loans', LoanUserController::class);
+    Route::resource('items', ItemUserController::class);
 
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
         Route::resource('loans', LoanController::class);

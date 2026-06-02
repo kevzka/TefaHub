@@ -19,6 +19,9 @@
                         <x-nav-link :href="route('loans.index')" :active="request()->routeIs('loans.index')">
                             {{ __('Loans') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('items.index')" :active="request()->routeIs('admin.items.index')">
+                            {{ __('Items') }}
+                        </x-nav-link>
                     @endif
                     @if (Auth::user()->is_admin)
                         <x-nav-link :href="route('admin.loans.index')" :active="request()->routeIs('admin.loans.index')">
