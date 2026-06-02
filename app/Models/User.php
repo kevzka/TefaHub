@@ -49,7 +49,16 @@ class User extends Authenticatable
         ];
     }
 
-    public function loan(){
+    public function loans(){
         return $this->hasMany(Loan::class);
+    }
+
+    /**
+     * Accessor to check if the user is an admin.
+     * Allows using `$user->is_admin` in views.
+     */
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->role === 'admin';
     }
 }
