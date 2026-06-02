@@ -12,9 +12,18 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        // $users = User::all();
+        $query = User::query();
+        // 2. Logika Search (Nama User atau Nama Barang)
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where('name', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%')->orWhere('class', 'like', '%' . $search . '%');
+        }
+
+        // 4. Eksekusi get() SEKALI SAJA di paling bawah bersama pengurutan terbaru
+        $users = $query->latest()->get();
         return view('admin.users.index', compact('users'));
     }
 

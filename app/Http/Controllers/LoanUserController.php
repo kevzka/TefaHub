@@ -14,10 +14,28 @@ class LoanUserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $loans = User::find(Auth::id())->loans()->with(['item'])->get();
-        return view('user.loans.index', compact('loans'));
+        $statuses = ['borrowed', 'returned'];
+        $query = User::find(Auth::id())->loans()->with(['item']);
+        // 2. Logika Search (Nama User atau Nama Barang)
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('item', function ($i) use ($search) {
+                    $i->where('name', 'like', '%' . $search . '%');
+                });
+            });
+        }
+
+        // 3. Logika Filter Status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // 4. Eksekusi get() SEKALI SAJA di paling bawah bersama pengurutan terbaru
+        $loans = $query->latest()->get();
+        return view('user.loans.index', compact('loans', 'statuses'));
     }
 
     /**

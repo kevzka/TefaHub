@@ -11,10 +11,24 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
-        return view('admin.items.index', compact('items'));
+        $query = Item::query();
+        // 2. Logika Search (Nama User atau Nama Barang)
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        // 3. Logika Filter Status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // 4. Eksekusi get() SEKALI SAJA di paling bawah bersama pengurutan terbaru
+        $items = $query->latest()->get();
+        $statuses = ['available', 'not available', 'damaged'];
+        return view('admin.items.index', compact('items', 'statuses'));
     }
 
     /**
