@@ -13,9 +13,32 @@ class LoanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $loans = Loan::with(['user', 'item'])->get();
+        // 1. Inisialisasi query lengkap dengan Eager Loading (with) di awal
+        $query = Loan::with(['user', 'item']);
+
+        // 2. Logika Search (Nama User atau Nama Barang)
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($u) use ($search) {
+                    $u->where('name', 'like', '%' . $search . '%');
+                })->orWhereHas('item', function ($i) use ($search) {
+                    $i->where('name', 'like', '%' . $search . '%');
+                });
+            });
+        }
+
+        // 3. Logika Filter Status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        // 4. Eksekusi get() SEKALI SAJA di paling bawah bersama pengurutan terbaru
+        $loans = $query->latest()->get();
+
+        // 5. Lempar ke View
         return view('admin.loans.index', compact('loans'));
     }
 
@@ -26,7 +49,7 @@ class LoanController extends Controller
     {
         $users = User::all();
         $items = Item::all();
-        $statuses = ['borrowed','returned'];
+        $statuses = ['borrowed', 'returned'];
         return view("admin.loans.create", compact('statuses', 'users', 'items'));
     }
 
@@ -51,7 +74,7 @@ class LoanController extends Controller
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
-        if($request['status'] == 'borrowed') {
+        if ($request['status'] == 'borrowed') {
             Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount - $request['amount']]);
         }
         return redirect()->route('admin.loans.index')->with('success', 'loan added successfully');
@@ -72,7 +95,7 @@ class LoanController extends Controller
     {
         $users = User::all();
         $items = Item::all();
-        $statuses = ['borrowed','returned'];
+        $statuses = ['borrowed', 'returned'];
         $loan->load(['user', 'item']);
         return view('admin.loans.edit', compact('loan', 'statuses', 'users', 'items'));
     }
@@ -101,7 +124,7 @@ class LoanController extends Controller
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
-        if($request['status'] == 'returned') {
+        if ($request['status'] == 'returned') {
             Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount + $request['amount']]);
         }
         return redirect()->route('admin.loans.index')->with('success', 'loan updated successfully');

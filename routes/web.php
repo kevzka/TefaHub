@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardStatistikController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemUserController;
 use App\Http\Controllers\LoanController;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('loans', LoanController::class);
         Route::resource('users', UserController::class);
         Route::resource('items', ItemController::class);
+        Route::resource('statistics', DashboardStatistikController::class);
     });
 });
 

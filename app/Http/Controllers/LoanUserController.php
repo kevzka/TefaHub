@@ -27,7 +27,7 @@ class LoanUserController extends Controller
     {
         $users = User::all();
         $items = Item::all();
-        $statuses = ['borrowed','returned'];
+        $statuses = ['borrowed', 'returned'];
         return view("user.loans.create", compact('statuses', 'users', 'items'));
     }
 
@@ -44,7 +44,7 @@ class LoanUserController extends Controller
             "return_date" => "required|date",
             "status" => "required|in:borrowed,returned",
         ]);
-        if(Item::find($request['item_id'])->amount - $request['amount'] < 0) {
+        if (Item::find($request['item_id'])->amount - $request['amount'] < 0) {
             return redirect()->back()->with('error', 'Not enough stock for this item');
         }
         Loan::create([
@@ -55,7 +55,7 @@ class LoanUserController extends Controller
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
-        if($request['status'] == 'borrowed') {
+        if ($request['status'] == 'borrowed') {
             Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount - $request['amount']]);
         }
         return redirect()->route('loans.index')->with('success', 'loan added successfully');
