@@ -49,7 +49,7 @@
                     <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Perbarui nama, jumlah, dan status barang yang dipilih.</p>
                 </div>
 
-                <form action="{{ route('admin.items.update', $item->id) }}" method="POST" class="space-y-6 p-6 sm:p-8">
+                <form action="{{ route('admin.items.update', $item->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6 p-6 sm:p-8">
                     @csrf
                     @method('PUT')
 
@@ -71,6 +71,12 @@
                                     <option value="{{ $status }}" {{ $status == $item->status ? 'selected' : '' }}>{{ $status }}</option>
                                 @endforeach
                             </select>
+                        </label>
+
+                        <label class="block md:col-span-2">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Image</span>
+                            <input type="file" name="image" accept="image/*" class="w-full rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-sm shadow-sm file:mr-4 file:rounded-lg file:border-0 file:bg-indigo-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-indigo-500 focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                            <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Kosongkan jika tidak ingin mengubah gambar.</p>
                         </label>
                     </div>
 

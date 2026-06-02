@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = ["name", "amount", "status"];
+    protected $fillable = ["name", "amount", "status", "image"];
 
     public function loan(){
         return $this->hasMany(Loan::class);

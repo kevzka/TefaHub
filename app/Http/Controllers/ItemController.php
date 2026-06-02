@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -32,13 +33,21 @@ class ItemController extends Controller
     {
         $request->validate([
             "name" => "required",
-            "amount" => "required|numeric",
-            "status" => "required|in:available,not available,damaged"
+            "amount" => "required|integer|min:1",
+            "status" => "required|in:available,not available,damaged",
+            "image" => "nullable|image|mimes:jpg,jpeg,png,webp|max:2048",
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('items', 'public');
+        }
+
         Item::create([
             "name" => $request['name'],
             "amount" => $request['amount'],
             "status" => $request['status'],
+            "image" => $imagePath,
         ]);
         return redirect()->route('admin.items.index')->with('success', 'item added successfully');
     }
@@ -70,13 +79,24 @@ class ItemController extends Controller
         //   "status" => "available"
         $request->validate([
             "name" => "required",
-            "amount" => "required|numeric",
-            "status" => "required|in:available,not available,damaged"
+            "amount" => "required|integer|min:1",
+            "status" => "required|in:available,not available,damaged",
+            "image" => "nullable|image|mimes:jpg,jpeg,png,webp|max:2048",
         ]);
+
+        $imagePath = $item->image;
+        if ($request->hasFile('image')) {
+            if ($item->image) {
+                Storage::disk('public')->delete($item->image);
+            }
+            $imagePath = $request->file('image')->store('items', 'public');
+        }
+
         $item->update([
             "name" => $request['name'],
             "amount" => $request['amount'],
             "status" => $request['status'],
+            "image" => $imagePath,
         ]);
         return redirect()->route('admin.items.index')->with('success', 'item updated successfully');
     }
@@ -86,6 +106,9 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
+        if ($item->image) {
+            Storage::disk('public')->delete($item->image);
+        }
         $item->delete();
         return redirect()->route('admin.items.index')->with('success', 'item deleted successfully');
     }

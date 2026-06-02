@@ -39,17 +39,25 @@ class LoanUserController extends Controller
         $request->validate([
             "user_id" => "required|exists:users,id",
             "item_id" => "required|exists:items,id",
+            "amount" => "required|integer|min:1",
             "loan_date" => "required|date",
             "return_date" => "required|date",
             "status" => "required|in:borrowed,returned",
         ]);
+        if(Item::find($request['item_id'])->amount - $request['amount'] < 0) {
+            return redirect()->back()->with('error', 'Not enough stock for this item');
+        }
         Loan::create([
             'user_id' => $request['user_id'],
             'item_id' => $request['item_id'],
             'loan_date' => $request['loan_date'],
+            'amount' => $request['amount'],
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
+        if($request['status'] == 'borrowed') {
+            Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount - $request['amount']]);
+        }
         return redirect()->route('loans.index')->with('success', 'loan added successfully');
     }
 
@@ -85,6 +93,7 @@ class LoanUserController extends Controller
         $request->validate([
             "user_id" => "required|exists:users,id",
             "item_id" => "required|exists:items,id",
+            "amount" => "required|integer|min:1",
             "loan_date" => "required|date",
             "return_date" => "required|date",
             "status" => "required|in:borrowed,returned",
@@ -93,10 +102,15 @@ class LoanUserController extends Controller
         $loan->update([
             'user_id' => $request['user_id'],
             'item_id' => $request['item_id'],
+            'amount' => $request['amount'],
             'loan_date' => $request['loan_date'],
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
+
+        if($request['status'] == 'returned') {
+            Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount + $request['amount']]);
+        }
 
         return redirect()->route('loans.index')->with('success', 'loan updated successfully');
     }

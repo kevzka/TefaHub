@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             items::class,
             UsersSeeder::class,
-            LoansSeeder::class
+            // LoansSeeder::class
         ]);
 
         // User::factory()->create([

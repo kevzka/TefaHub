@@ -18,6 +18,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Muhammad Rafli',
                 'class' => 'XII PPLG 1',
+                'role' => 'user',
                 'email' => 'rafli@gmail.com',
                 'password' => Hash::make('password123'),
                 'created_at' => now(),
@@ -26,6 +27,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Siti Aminah',
                 'class' => 'XII PPLG 1',
+                'role' => 'user',
                 'email' => 'siti@gmail.com',
                 'password' => Hash::make('password123'),
                 'created_at' => now(),
@@ -34,6 +36,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Budi Setiawan',
                 'class' => 'XII PPLG 2',
+                'role' => 'user',
                 'email' => 'budi@gmail.com',
                 'password' => Hash::make('password123'),
                 'created_at' => now(),
@@ -42,6 +45,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Ahmad Fauzi',
                 'class' => 'XI PPLG 1',
+                'role' => 'user',
                 'email' => 'fauzi@gmail.com',
                 'password' => Hash::make('password123'),
                 'created_at' => now(),
@@ -50,8 +54,27 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Amanda Putri',
                 'class' => 'XI PPLG 2',
+                'role' => 'user',
                 'email' => 'amanda@gmail.com',
                 'password' => Hash::make('password123'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'admin',
+                'class' => 'admin',
+                'role' => 'admin', 
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('admin123'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'user',
+                'class' => 'user',
+                'role' => 'user',
+                'email' => 'user@user.com',
+                'password' => Hash::make('user123'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

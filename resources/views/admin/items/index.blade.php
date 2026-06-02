@@ -70,6 +70,7 @@
                         <thead>
                             <tr class="border-b border-slate-200 bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
                                 <th class="px-6 py-3.5 text-center w-12">No</th>
+                                <th class="px-6 py-3.5">Image</th>
                                 <th class="px-6 py-3.5">Name</th>
                                 <th class="px-6 py-3.5">Amount</th>
                                 <th class="px-6 py-3.5">Status</th>
@@ -81,6 +82,11 @@
                                 <tr class="group transition-colors hover:bg-slate-50 dark:hover:bg-slate-700">
                                     <td class="whitespace-nowrap px-6 py-4 text-center text-sm font-medium text-slate-400 dark:text-slate-500">
                                         {{ $loop->iteration }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('images/item-placeholder.svg') }}"
+                                            alt="{{ $item->name }}"
+                                            class="h-14 w-14 rounded-2xl border border-slate-200 object-cover shadow-sm dark:border-slate-700">
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-semibold text-slate-900 dark:text-slate-200">{{ $item->name }}</div>
@@ -108,7 +114,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="px-6 py-16 text-center">
+                                    <td colspan="6" class="px-6 py-16 text-center">
                                         <div class="flex flex-col items-center justify-center gap-2">
                                             <div class="rounded-full bg-slate-100 p-3 text-slate-400 dark:bg-slate-700">
                                                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>

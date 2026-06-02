@@ -95,9 +95,15 @@
                             <select name="item_id"
                                 class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
                                 @foreach ($items as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->name }} | Stok: {{ $item->amount }} | Status: {{ $item->status }}</option>
                                 @endforeach
                             </select>
+                        </label>
+
+                        <label class="block">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Amount</span>
+                            <input type="number" name="amount" min="1" value="1" placeholder="Jumlah"
+                                class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
                         </label>
 
                         <label class="block">

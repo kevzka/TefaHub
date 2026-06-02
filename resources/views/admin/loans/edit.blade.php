@@ -79,6 +79,11 @@
                         </label>
 
                         <label class="block">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Amount</span>
+                            <input type="number" name="amount" min="1" value="{{ $loan->amount }}" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                        </label>
+
+                        <label class="block">
                             <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Loan Date</span>
                             <input type="date" name="loan_date" value="{{ date('Y-m-d', strtotime($loan->loan_date)) }}" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
                         </label>

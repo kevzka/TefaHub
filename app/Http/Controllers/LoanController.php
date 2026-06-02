@@ -38,6 +38,7 @@ class LoanController extends Controller
         $request->validate([
             "user_id" => "required|exists:users,id",
             "item_id" => "required|exists:items,id",
+            "amount" => "required|integer|min:1",
             "loan_date" => "required|date",
             "return_date" => "required|date",
             "status" => "required|in:borrowed,returned",
@@ -45,10 +46,14 @@ class LoanController extends Controller
         Loan::create([
             'user_id' => $request['user_id'],
             'item_id' => $request['item_id'],
+            'amount' => $request['amount'],
             'loan_date' => $request['loan_date'],
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
+        if($request['status'] == 'borrowed') {
+            Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount - $request['amount']]);
+        }
         return redirect()->route('admin.loans.index')->with('success', 'loan added successfully');
     }
 
@@ -68,7 +73,7 @@ class LoanController extends Controller
         $users = User::all();
         $items = Item::all();
         $statuses = ['borrowed','returned'];
-        $loan->with(['user', 'item'])->get();
+        $loan->load(['user', 'item']);
         return view('admin.loans.edit', compact('loan', 'statuses', 'users', 'items'));
     }
 
@@ -83,6 +88,7 @@ class LoanController extends Controller
         $request->validate([
             "user_id" => "required|exists:users,id",
             "item_id" => "required|exists:items,id",
+            "amount" => "required|integer|min:1",
             "loan_date" => "required|date",
             "return_date" => "required|date",
             "status" => "required|in:borrowed,returned",
@@ -90,10 +96,14 @@ class LoanController extends Controller
         $loan->update([
             'user_id' => $request['user_id'],
             'item_id' => $request['item_id'],
+            'amount' => $request['amount'],
             'loan_date' => $request['loan_date'],
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
+        if($request['status'] == 'returned') {
+            Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount + $request['amount']]);
+        }
         return redirect()->route('admin.loans.index')->with('success', 'loan updated successfully');
     }
 

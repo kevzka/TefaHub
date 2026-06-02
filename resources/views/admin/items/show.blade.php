@@ -59,6 +59,11 @@
                 </div>
 
                 <div class="grid gap-6 p-6 sm:p-8 md:grid-cols-2">
+                    <div class="overflow-hidden rounded-2xl bg-slate-50 dark:bg-slate-900/50 md:col-span-2">
+                        <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('images/item-placeholder.svg') }}"
+                            alt="{{ $item->name }}"
+                            class="h-72 w-full object-cover">
+                    </div>
                     <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
                         <p class="text-sm text-slate-500 dark:text-slate-400">Name</p>
                         <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $item->name }}</p>
