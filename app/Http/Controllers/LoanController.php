@@ -16,7 +16,7 @@ class LoanController extends Controller
     public function index()
     {
         $loans = Loan::with(['user', 'item'])->get();
-        return view('loans.index', compact('loans'));
+        return view('admin.loans.index', compact('loans'));
     }
 
     /**
@@ -27,7 +27,7 @@ class LoanController extends Controller
         $users = User::all();
         $items = Item::all();
         $statuses = ['borrowed','returned'];
-        return view("loans.create", compact('statuses', 'users', 'items'));
+        return view("admin.loans.create", compact('statuses', 'users', 'items'));
     }
 
     /**
@@ -49,7 +49,7 @@ class LoanController extends Controller
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
-        return redirect()->route('loans.index')->with('success', 'loan added successfully');
+        return redirect()->route('admin.loans.index')->with('success', 'loan added successfully');
     }
 
     /** 
@@ -57,7 +57,7 @@ class LoanController extends Controller
      */
     public function show(loan $loan)
     {
-        return view('loans.show', compact('loan'));
+        return view('admin.loans.show', compact('loan'));
     }
 
     /**
@@ -69,7 +69,7 @@ class LoanController extends Controller
         $items = Item::all();
         $statuses = ['borrowed','returned'];
         $loan->with(['user', 'item'])->get();
-        return view('loans.edit', compact('loan', 'statuses', 'users', 'items'));
+        return view('admin.loans.edit', compact('loan', 'statuses', 'users', 'items'));
     }
 
     /**
@@ -94,7 +94,7 @@ class LoanController extends Controller
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
-        return redirect()->route('loans.index')->with('success', 'loan updated successfully');
+        return redirect()->route('admin.loans.index')->with('success', 'loan updated successfully');
     }
 
     /**
@@ -103,6 +103,6 @@ class LoanController extends Controller
     public function destroy(loan $loan)
     {
         $loan->delete();
-        return redirect()->route('loans.index')->with('success', 'loan deleted successfully');
+        return redirect()->route('admin.loans.index')->with('success', 'loan deleted successfully');
     }
 }

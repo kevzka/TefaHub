@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -24,7 +24,7 @@ class UserController extends Controller
     public function create()
     {
         // $emailes = ['available', 'not available', 'damaged'];
-        return view("users.create");
+        return view("admin.users.create");
     }
 
     /**
@@ -43,7 +43,7 @@ class UserController extends Controller
             "email" => $request['email'],
             "password" =>  Hash::make('password123')
         ]);
-        return redirect()->route('users.index')->with('success', 'user added successfully');
+        return redirect()->route('admin.users.index')->with('success', 'user added successfully');
     }
 
     /** 
@@ -51,7 +51,7 @@ class UserController extends Controller
      */
     public function show(user $user)
     {
-        return view('users.show', compact('user'));
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -59,7 +59,7 @@ class UserController extends Controller
      */
     public function edit(user $user)
     {
-        return view('users.edit', compact('user'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -81,7 +81,7 @@ class UserController extends Controller
             "email" => $request['email'],
             "password" =>  Hash::make('password123')
         ]);
-        return redirect()->route('users.index')->with('success', 'user updated successfully');
+        return redirect()->route('admin.users.index')->with('success', 'user updated successfully');
     }
 
     /**
@@ -90,6 +90,6 @@ class UserController extends Controller
     public function destroy(user $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'user deleted successfully');
+        return redirect()->route('admin.users.index')->with('success', 'user deleted successfully');
     }
 }

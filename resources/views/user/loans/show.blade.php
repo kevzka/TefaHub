@@ -71,44 +71,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div
-                class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
-                <div class="border-b border-slate-100 px-6 py-5 bg-slate-50 dark:border-slate-700 dark:bg-slate-900">
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Ringkasan Detail</h3>
-                    <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Informasi lengkap peminjaman
-                        ditampilkan dalam panel yang seragam.</p>
-                </div>
-
-                <div class="grid gap-6 p-6 md:grid-cols-2">
-                    <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Nama User</p>
-                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $loan->user->name }}</p>
-                    </div>
-                    <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Nama Item</p>
-                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $loan->item->name }}</p>
-                    </div>
-                    <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Loan Date</p>
-                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $loan->loan_date }}</p>
-                    </div>
-                    <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Return Date</p>
-                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $loan->return_date }}
-                        </p>
-                    </div>
-                    <div class="rounded-2xl bg-slate-50 p-5 md:col-span-2 dark:bg-slate-900/50">
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Status</p>
-                        <span
-                            class="mt-2 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold {{ $loan->status === 'borrowed' ? 'bg-amber-50 text-amber-800 dark:bg-amber-900/50 dark:text-amber-400' : 'bg-emerald-50 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-400' }}">
-                            <span
-                                class="h-1.5 w-1.5 rounded-full {{ $loan->status === 'borrowed' ? 'bg-amber-500' : 'bg-emerald-500' }}"></span>
-                            {{ ucfirst($loan->status) }}
-                        </span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

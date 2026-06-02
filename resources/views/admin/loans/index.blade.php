@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="mt-6 font-sans">
-                        <a href="{{ route('loans.create') }}"
+                        <a href="{{ route('admin.loans.create') }}"
                             class="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/30 transition-all hover:bg-indigo-500 active:scale-95">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
@@ -217,12 +217,9 @@
                                 <tr>
                                     <td colspan="7" class="px-6 py-16 text-center">
                                         <div class="flex flex-col items-center justify-center gap-2">
-                                            <div
-                                                class="rounded-full bg-slate-100 p-3 dark:bg-slate-700 text-slate-400">
-                                                <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
+                                            <div class="rounded-full bg-slate-100 p-3 dark:bg-slate-700 text-slate-400">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5a2 2 0 012-2h2a2 2 0 002-2V8a2 2 0 012-2h2a2 2 0 012 2v3a2 2 0 002 2h2a2 2 0 012 2z" />
                                                 </svg>
                                             </div>

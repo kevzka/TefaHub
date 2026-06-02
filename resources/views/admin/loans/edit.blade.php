@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="mt-6 flex flex-wrap gap-3 font-sans">
-                        <a href="{{ route('loans.index') }}" class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10 active:scale-95">
+                        <a href="{{ route('admin.loans.index') }}" class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10 active:scale-95">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
                             Kembali ke Daftar
                         </a>
@@ -51,7 +51,7 @@
                     <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Sesuaikan informasi user, barang, tanggal, dan status yang diperlukan.</p>
                 </div>
 
-                <form action="{{ route('loans.update', $loan->id) }}" method="POST" class="space-y-6 p-6">
+                <form action="{{ route('admin.loans.update', $loan->id) }}" method="POST" class="space-y-6 p-6">
                     @csrf
                     @method('PUT')
 
@@ -104,7 +104,7 @@
                         <button type="submit" class="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-500 active:scale-95">
                             Simpan Perubahan
                         </button>
-                        <a href="{{ route('loans.index') }}" class="inline-flex items-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700">
+                        <a href="{{ route('admin.loans.index') }}" class="inline-flex items-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700">
                             Batal
                         </a>
                     </div>

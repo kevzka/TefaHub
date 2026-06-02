@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="mt-6 flex flex-wrap gap-3 font-sans">
-                        <a href="{{ route('loans.index') }}"
+                        <a href="{{ route('admin.loans.index') }}"
                             class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10 active:scale-95">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
@@ -68,7 +68,7 @@
                         dan status peminjaman.</p>
                 </div>
 
-                <form action="{{ route('loans.store') }}" method="POST" class="space-y-6 p-6">
+                <form action="{{ route('admin.loans.store') }}" method="POST" class="space-y-6 p-6">
                     @csrf
 
                     <div class="grid gap-6 md:grid-cols-2">
@@ -104,7 +104,7 @@
                             <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Loan
                                 Date</span>
                             <input type="date" name="loan_date"
-                                class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                                class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark;border-slate-600 dark:bg-slate-900 dark:text-white">
                         </label>
 
                         <label class="block">
@@ -135,7 +135,7 @@
                             class="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-500 active:scale-95">
                             Tambahkan
                         </button>
-                        <a href="{{ route('loans.index') }}"
+                        <a href="{{ route('admin.loans.index') }}"
                             class="inline-flex items-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700">
                             Batal
                         </a>

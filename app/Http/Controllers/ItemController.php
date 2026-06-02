@@ -13,7 +13,7 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::all();
-        return view('items.index', compact('items'));
+        return view('admin.items.index', compact('items'));
     }
 
     /**
@@ -22,7 +22,7 @@ class ItemController extends Controller
     public function create()
     {
         $statuses = ['available', 'not available', 'damaged'];
-        return view("items.create", compact('statuses'));
+        return view("admin.items.create", compact('statuses'));
     }
 
     /**
@@ -40,7 +40,7 @@ class ItemController extends Controller
             "amount" => $request['amount'],
             "status" => $request['status'],
         ]);
-        return redirect()->route('items.index')->with('success', 'item added successfully');
+        return redirect()->route('admin.items.index')->with('success', 'item added successfully');
     }
 
     /** 
@@ -48,7 +48,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return view('items.show', compact('item'));
+        return view('admin.items.show', compact('item'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ItemController extends Controller
     public function edit(Item $item)
     {
         $statuses = ['available', 'not available', 'damaged'];
-        return view('items.edit', compact('item', 'statuses'));
+        return view('admin.items.edit', compact('item', 'statuses'));
     }
 
     /**
@@ -78,7 +78,7 @@ class ItemController extends Controller
             "amount" => $request['amount'],
             "status" => $request['status'],
         ]);
-        return redirect()->route('items.index')->with('success', 'item updated successfully');
+        return redirect()->route('admin.items.index')->with('success', 'item updated successfully');
     }
 
     /**
@@ -87,6 +87,6 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $item->delete();
-        return redirect()->route('items.index')->with('success', 'item deleted successfully');
+        return redirect()->route('admin.items.index')->with('success', 'item deleted successfully');
     }
 }
