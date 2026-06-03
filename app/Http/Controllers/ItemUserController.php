@@ -18,12 +18,13 @@ class ItemUserController extends Controller
         // 2. Logika Search (Nama User atau Nama Barang)
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where('name', 'like', '%' . $search . '%');
+            $query->where('nama_barang', 'like', '%' . $search . '%')
+                ->orWhere('kategori_barang', 'like', '%' . $search . '%');
         }
 
         // 3. Logika Filter Status
         if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
+            $query->where('kondisi_barang', $request->status);
         }
 
         // 4. Eksekusi get() SEKALI SAJA di paling bawah bersama pengurutan terbaru

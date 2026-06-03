@@ -11,7 +11,7 @@
                         <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Detail Peminjaman</h1>
                         <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-300">
                             Ringkasan informasi peminjaman untuk barang {{ $loan->item->name }} oleh
-                            {{ $loan->user->name }}.
+                            {{ $loan->user->name }}. sebanyak {{ $loan->amount }} unit dengan status {{ $loan->status }}.
                         </p>
                     </div>
 

@@ -2,45 +2,33 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    protected $table = 'peminjam';
+
     protected $fillable = [
+        'nama_peminjam',
+        'kelas',
+        'jurusan',
+        'no_hp',
         'name',
-        'role',
         'class',
+        'role',
         'email',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -49,16 +37,33 @@ class User extends Authenticatable
         ];
     }
 
-    public function loans(){
-        return $this->hasMany(Loan::class);
+    public function loans()
+    {
+        return $this->hasMany(Loan::class, 'peminjam_id');
     }
 
-    /**
-     * Accessor to check if the user is an admin.
-     * Allows using `$user->is_admin` in views.
-     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['nama_peminjam'] ?? null;
+    }
+
+    public function setNameAttribute($value): void
+    {
+        $this->attributes['nama_peminjam'] = $value;
+    }
+
+    public function getClassAttribute()
+    {
+        return $this->attributes['kelas'] ?? null;
+    }
+
+    public function setClassAttribute($value): void
+    {
+        $this->attributes['kelas'] = $value;
+    }
+
     public function getIsAdminAttribute(): bool
     {
-        return $this->role === 'admin';
+        return ($this->attributes['role'] ?? null) === 'admin';
     }
 }

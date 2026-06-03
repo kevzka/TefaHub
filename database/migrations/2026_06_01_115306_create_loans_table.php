@@ -11,23 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-    //      protected $fillable = [
-    //     'user_id',
-    //     'item_id',
-    //     'loan_date',
-    //     'return_date',
-    //     'status'
-    // ];
-        Schema::create('loans', function (Blueprint $table) {
+        Schema::create('peminjaman', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('item_id');
-            $table->integer('amount')->default(1);
-            $table->foreign("user_id")->references("id")->on("users");
-            $table->foreign("item_id")->references("id")->on("items");
-            $table->timestamp('loan_date');
-            $table->timestamp('return_date');
-            $table->enum("status", ['borrowed', 'returned']);
+            $table->foreignId('peminjam_id')->constrained('peminjam');
+            $table->foreignId('barang_id')->constrained('barang');
+            $table->timestamp('tanggal_pinjam');
+            $table->timestamp('tanggal_kembali')->nullable();
+            $table->unsignedInteger('jumlah_pinjam');
+            $table->enum('status_peminjaman', ['borrowed', 'returned']);
             $table->timestamps();
         });
     }
@@ -37,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loans');
+        Schema::dropIfExists('peminjaman');
     }
 };

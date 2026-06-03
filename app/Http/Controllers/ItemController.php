@@ -17,12 +17,13 @@ class ItemController extends Controller
         // 2. Logika Search (Nama User atau Nama Barang)
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where('name', 'like', '%' . $search . '%');
+            $query->where('nama_barang', 'like', '%' . $search . '%')
+                ->orWhere('kategori_barang', 'like', '%' . $search . '%');
         }
 
         // 3. Logika Filter Status
         if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
+            $query->where('kondisi_barang', $request->status);
         }
 
         // 4. Eksekusi get() SEKALI SAJA di paling bawah bersama pengurutan terbaru
@@ -47,6 +48,7 @@ class ItemController extends Controller
     {
         $request->validate([
             "name" => "required",
+            "category" => "nullable",
             "amount" => "required|integer|min:1",
             "status" => "required|in:available,not available,damaged",
             "image" => "nullable|image|mimes:jpg,jpeg,png,webp|max:2048",
@@ -59,6 +61,7 @@ class ItemController extends Controller
 
         Item::create([
             "name" => $request['name'],
+            "category" => $request['category'] ?? 'Umum',
             "amount" => $request['amount'],
             "status" => $request['status'],
             "image" => $imagePath,
@@ -93,6 +96,7 @@ class ItemController extends Controller
         //   "status" => "available"
         $request->validate([
             "name" => "required",
+            "category" => "nullable",
             "amount" => "required|integer|min:1",
             "status" => "required|in:available,not available,damaged",
             "image" => "nullable|image|mimes:jpg,jpeg,png,webp|max:2048",
@@ -108,6 +112,7 @@ class ItemController extends Controller
 
         $item->update([
             "name" => $request['name'],
+            "category" => $request['category'] ?? 'Umum',
             "amount" => $request['amount'],
             "status" => $request['status'],
             "image" => $imagePath,

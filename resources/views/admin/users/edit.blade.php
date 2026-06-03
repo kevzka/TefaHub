@@ -6,7 +6,7 @@
                     <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-indigo-500/10 blur-2xl"></div>
                     <div class="relative">
                         <p class="text-xs font-semibold uppercase tracking-[0.25em] text-indigo-400">Sistem Inventaris</p>
-                        <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Edit User</h1>
+                        <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Edit Peminjam</h1>
                         <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-300">
                             Perbarui data pengguna dengan layout yang konsisten seperti modul lain.
                         </p>
@@ -46,8 +46,8 @@
 
             <div class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
                 <div class="border-b border-slate-100 bg-slate-50 px-6 py-5 dark:border-slate-700 dark:bg-slate-900">
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Form Edit User</h3>
-                    <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Perbarui nama, kelas, dan email user yang dipilih.</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Form Edit Peminjam</h3>
+                    <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Perbarui identitas peminjam dan role login yang dipilih.</p>
                 </div>
 
                 <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="space-y-6 p-6 sm:p-8">
@@ -56,13 +56,31 @@
 
                     <div class="grid gap-6 md:grid-cols-2">
                         <label class="block">
-                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Name</span>
-                            <input type="text" name="name" placeholder="Please enter name user" value="{{ $user->name }}" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Nama Peminjam</span>
+                            <input type="text" name="nama_peminjam" placeholder="Masukkan nama peminjam" value="{{ $user->nama_peminjam }}" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
                         </label>
 
                         <label class="block">
-                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Class</span>
-                            <input type="text" name="class" placeholder="Please enter class user" value="{{ $user->class }}" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Kelas</span>
+                            <input type="text" name="kelas" placeholder="Masukkan kelas" value="{{ $user->kelas }}" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                        </label>
+
+                        <label class="block">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Jurusan</span>
+                            <input type="text" name="jurusan" placeholder="Masukkan jurusan" value="{{ $user->jurusan }}" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                        </label>
+
+                        <label class="block">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">No. HP</span>
+                            <input type="text" name="no_hp" placeholder="Masukkan nomor HP" value="{{ $user->no_hp }}" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                        </label>
+
+                        <label class="block md:col-span-2">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Role</span>
+                            <select name="role" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                                <option value="user" @selected($user->role === 'user')>User</option>
+                                <option value="admin" @selected($user->role === 'admin')>Admin</option>
+                            </select>
                         </label>
 
                         <label class="block md:col-span-2">

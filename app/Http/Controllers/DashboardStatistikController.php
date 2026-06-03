@@ -18,9 +18,9 @@ class DashboardStatistikController extends Controller
             'total_users'     => User::count(),
             'total_items'     => Item::count(),
             'total_loans'     => Loan::count(),
-            'active_loans'    => Loan::where('status', 'borrowed')->count(),
-            'returned_loans'  => Loan::where('status', 'returned')->count(),
-            'total_item_qty'  => Item::sum('amount'),
+            'active_loans'    => Loan::where('status_peminjaman', 'borrowed')->count(),
+            'returned_loans'  => Loan::where('status_peminjaman', 'returned')->count(),
+            'total_item_qty'  => Item::sum('stok'),
         ];
 
         // 2. Data Grafik: Tren Peminjaman 7 Hari Terakhir
@@ -42,18 +42,18 @@ class DashboardStatistikController extends Controller
         });
 
         // 3. Data Grafik: Top 5 Barang yang Paling Sering Dipinjam
-        $topItems = Loan::select('item_id', DB::raw('count(*) as total'))
-            ->groupBy('item_id')
-            ->with('item')
+        $topItems = Loan::select('barang_id', DB::raw('count(*) as total'))
+            ->groupBy('barang_id')
+            ->with('barang')
             ->orderBy('total', 'desc')
             ->take(5)
             ->get();
 
-        $chartItemLabels = $topItems->map(fn($l) => $l->item->name ?? 'Dihapus');
+        $chartItemLabels = $topItems->map(fn($l) => $l->barang->nama_barang ?? 'Dihapus');
         $chartItemData = $topItems->map(fn($l) => $l->total);
 
         // 4. Ambil 5 Aktivitas Log Peminjaman Terbaru
-        $recentLoans = Loan::with(['user', 'item'])->latest()->take(5)->get();
+        $recentLoans = Loan::with(['peminjam', 'barang'])->latest()->take(5)->get();
 
         return view('admin.statistic.index', compact('stats', 'chartTrendLabels', 'chartTrendData', 'chartItemLabels', 'chartItemData', 'recentLoans'));
     }

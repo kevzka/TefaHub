@@ -17,20 +17,20 @@ class LoanUserController extends Controller
     public function index(Request $request)
     {
         $statuses = ['borrowed', 'returned'];
-        $query = User::find(Auth::id())->loans()->with(['item']);
+        $query = User::find(Auth::id())->loans()->with(['barang']);
         // 2. Logika Search (Nama User atau Nama Barang)
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
-                $q->whereHas('item', function ($i) use ($search) {
-                    $i->where('name', 'like', '%' . $search . '%');
+                $q->whereHas('barang', function ($i) use ($search) {
+                    $i->where('nama_barang', 'like', '%' . $search . '%');
                 });
             });
         }
 
         // 3. Logika Filter Status
         if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
+            $query->where('status_peminjaman', $request->status);
         }
 
         // 4. Eksekusi get() SEKALI SAJA di paling bawah bersama pengurutan terbaru
@@ -55,8 +55,8 @@ class LoanUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "user_id" => "required|exists:users,id",
-            "item_id" => "required|exists:items,id",
+            "user_id" => "required|exists:peminjam,id",
+            "item_id" => "required|exists:barang,id",
             "amount" => "required|integer|min:1",
             "loan_date" => "required|date",
             "return_date" => "required|date",
@@ -74,7 +74,7 @@ class LoanUserController extends Controller
             'status' => $request['status'],
         ]);
         if ($request['status'] == 'borrowed') {
-            Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount - $request['amount']]);
+            Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount - $request['amount'], "status" => Item::find($request['item_id'])->amount - $request['amount'] == 0 ? 'not available' : Item::find($request['item_id'])->status]);
         }
         return redirect()->route('loans.index')->with('success', 'loan added successfully');
     }

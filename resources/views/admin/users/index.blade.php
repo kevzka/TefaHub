@@ -15,9 +15,9 @@
                     <div class="relative">
                         <p class="text-xs font-semibold uppercase tracking-[0.25em] text-indigo-400">Sistem Inventaris
                         </p>
-                        <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Data User</h1>
-                        <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-300">
-                            Kelola data pengguna sistem dengan tampilan yang seragam, rapi, dan mudah dipindai.
+                        <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Data Peminjam</h1>
+                            <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-300">
+                            Kelola data peminjam sistem dengan tampilan yang seragam, rapi, dan mudah dipindai.
                         </p>
                     </div>
 
@@ -28,7 +28,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                     d="M12 4v16m8-8H4" />
                             </svg>
-                            Tambah User
+                            Tambah Peminjam
                         </a>
                         <a href="{{ route('admin.loans.index') }}"
                             class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10 active:scale-95">
@@ -76,8 +76,8 @@
                 <div class="border-b border-slate-100 bg-slate-50 px-6 py-5 dark:border-slate-700 dark:bg-slate-900">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Daftar User</h3>
-                            <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Seluruh akun pengguna sistem
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Daftar Peminjam</h3>
+                            <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Seluruh akun peminjam sistem
                                 ditampilkan di bawah ini.</p>
                         </div>
                         <a href="{{ route('admin.users.create') }}"
@@ -100,7 +100,7 @@
                                 </svg>
                             </div>
                             <input type="text" name="search" value="{{ request('search') }}"
-                                placeholder="Cari nama peminjam atau nama barang..."
+                                placeholder="Cari nama peminjam, kelas, atau jurusan..."
                                 class="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 py-2 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:focus:border-indigo-500">
                         </div>
                         <div class="flex items-center gap-2">
@@ -125,8 +125,10 @@
                             <tr
                                 class="border-b border-slate-200 bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
                                 <th class="px-6 py-3.5 text-center w-12">No</th>
-                                <th class="px-6 py-3.5">Name</th>
-                                <th class="px-6 py-3.5">Class</th>
+                                <th class="px-6 py-3.5">Nama Peminjam</th>
+                                <th class="px-6 py-3.5">Kelas</th>
+                                <th class="px-6 py-3.5">Jurusan</th>
+                                <th class="px-6 py-3.5">Role</th>
                                 <th class="px-6 py-3.5">Email</th>
                                 <th class="px-6 py-3.5 text-center w-32">Aksi</th>
                             </tr>
@@ -140,13 +142,17 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-semibold text-slate-900 dark:text-slate-200">
-                                            {{ $user->name }}</div>
+                                            {{ $user->nama_peminjam }}</div>
                                         <div class="text-xs text-slate-400 dark:text-slate-500">User ID:
                                             #{{ $user->id }}</div>
                                     </td>
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300 font-medium">
-                                        {{ $user->class }}</td>
+                                        {{ $user->kelas }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300">
+                                        {{ $user->jurusan ?? '-' }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300">
+                                        {{ $user->role }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300">
                                         {{ $user->email }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -194,7 +200,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="px-6 py-16 text-center">
+                                    <td colspan="7" class="px-6 py-16 text-center">
                                         <div class="flex flex-col items-center justify-center gap-2">
                                             <div
                                                 class="rounded-full bg-slate-100 p-3 text-slate-400 dark:bg-slate-700">
@@ -206,7 +212,7 @@
                                                 </svg>
                                             </div>
                                             <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">Belum
-                                                Ada Data User</p>
+                                                Ada Data Peminjam</p>
                                         </div>
                                     </td>
                                 </tr>
