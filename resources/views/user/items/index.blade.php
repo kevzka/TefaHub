@@ -89,6 +89,7 @@
                                 <th class="px-6 py-3.5">Image</th>
                                 <th class="px-6 py-3.5">Name</th>
                                 <th class="px-6 py-3.5">Amount</th>
+                                <th class="px-6 py-3.5">Category</th>
                                 <th class="px-6 py-3.5">Status</th>
                                 <th class="px-6 py-3.5 text-center w-32">Aksi</th>
                             </tr>
@@ -109,6 +110,7 @@
                                         <div class="text-xs text-slate-400 dark:text-slate-500">Item ID: #{{ $item->id }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300 font-medium">{{ $item->amount }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300 font-medium">{{ $item->kategori_barang }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300">{{ $item->status }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
                                         <div class="flex items-center justify-center gap-1">

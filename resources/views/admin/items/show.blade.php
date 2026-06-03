@@ -73,6 +73,10 @@
                         <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $item->amount }}</p>
                     </div>
                     <div class="rounded-2xl bg-slate-50 p-5 md:col-span-2 dark:bg-slate-900/50">
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Category</p>
+                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $item->kategori_barang }}</p>
+                    </div>
+                    <div class="rounded-2xl bg-slate-50 p-5 md:col-span-2 dark:bg-slate-900/50">
                         <p class="text-sm text-slate-500 dark:text-slate-400">Status</p>
                         <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $item->status }}</p>
                     </div>

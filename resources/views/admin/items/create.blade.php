@@ -71,6 +71,10 @@
                                 @endforeach
                             </select>
                         </label>
+                        <label class="block md:col-span-2">
+                            <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Category</span>
+                            <input type="text" name="category" placeholder="Please enter category item" class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                        </label>
 
                         <label class="block md:col-span-2">
                             <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Image</span>

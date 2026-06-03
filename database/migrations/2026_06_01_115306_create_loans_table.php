@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('tanggal_pinjam');
             $table->timestamp('tanggal_kembali')->nullable();
             $table->unsignedInteger('jumlah_pinjam');
-            $table->enum('status_peminjaman', ['borrowed', 'returned']);
+            $table->enum('status_peminjaman', ['borrowed', 'returned', 'late']);
             $table->timestamps();
         });
     }
