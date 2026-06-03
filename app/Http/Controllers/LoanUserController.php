@@ -16,7 +16,7 @@ class LoanUserController extends Controller
      */
     public function index(Request $request)
     {
-        $statuses = ['borrowed', 'returned'];
+        $statuses = ['dipinjam', 'dikembalikan', 'terlambat'];
         $query = User::find(Auth::id())->loans()->with(['barang']);
         // 2. Logika Search (Nama User atau Nama Barang)
         if ($request->has('search') && $request->search != '') {
@@ -45,7 +45,7 @@ class LoanUserController extends Controller
     {
         $users = User::all();
         $items = Item::all();
-        $statuses = ['borrowed', 'returned'];
+        $statuses = ['dipinjam', 'dikembalikan'];
         return view("user.loans.create", compact('statuses', 'users', 'items'));
     }
 
@@ -60,10 +60,10 @@ class LoanUserController extends Controller
             "amount" => "required|integer|min:1",
             "loan_date" => "required|date",
             "return_date" => "required|date",
-            "status" => "required|in:borrowed,returned",
+            "status" => "required|in:dipinjam,dikembalikan",
         ]);
         if (Item::find($request['item_id'])->amount - $request['amount'] < 0) {
-            return redirect()->back()->with('error', 'Not enough stock for this item');
+            return redirect()->back()->with('success', 'Not enough stock for this item');
         }
         Loan::create([
             'user_id' => $request['user_id'],
@@ -73,7 +73,7 @@ class LoanUserController extends Controller
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
-        if ($request['status'] == 'borrowed') {
+        if ($request['status'] == 'dipinjam') {
             Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount - $request['amount'], "status" => Item::find($request['item_id'])->amount - $request['amount'] == 0 ? 'not available' : Item::find($request['item_id'])->status]);
         }
         return redirect()->route('loans.index')->with('success', 'loan added successfully');
@@ -96,7 +96,7 @@ class LoanUserController extends Controller
 
     //     $users = User::all();
     //     $items = Item::all();
-    //     $statuses = ['borrowed','returned'];
+    //     $statuses = ['dipinjam','dikembalikan'];
     //     $loan->load(['user', 'item']);
     //     return view('user.loans.edit', compact('loan', 'statuses', 'users', 'items'));
     // }
@@ -114,7 +114,7 @@ class LoanUserController extends Controller
     //         "amount" => "required|integer|min:1",
     //         "loan_date" => "required|date",
     //         "return_date" => "required|date",
-    //         "status" => "required|in:borrowed,returned",
+    //         "status" => "required|in:dipinjam,dikembalikan",
     //     ]);
 
     //     $loan->update([
@@ -126,7 +126,7 @@ class LoanUserController extends Controller
     //         'status' => $request['status'],
     //     ]);
 
-    //     if($request['status'] == 'returned') {
+    //     if($request['status'] == 'dikembalikan') {
     //         Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount + $request['amount']]);
     //     }
 

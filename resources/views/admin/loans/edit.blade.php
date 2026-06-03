@@ -34,11 +34,11 @@
                     <div class="flex items-center justify-between rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
                         <div>
                             <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Status Saat Ini</p>
-                            <p class="mt-2 text-3xl font-bold tracking-tight {{ $loan->status === 'borrowed' ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400' }}">
+                            <p class="mt-2 text-3xl font-bold tracking-tight {{ $loan->status === 'dipinjam' ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400' }}">
                                 {{ ucfirst($loan->status) }}
                             </p>
                         </div>
-                        <div class="rounded-2xl {{ $loan->status === 'borrowed' ? 'bg-amber-50 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400' : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400' }} p-3">
+                        <div class="rounded-2xl {{ $loan->status === 'dipinjam' ? 'bg-amber-50 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400' : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400' }} p-3">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
                     </div>

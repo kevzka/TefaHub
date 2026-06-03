@@ -18,8 +18,8 @@ class DashboardStatistikController extends Controller
             'total_users'     => User::count(),
             'total_items'     => Item::count(),
             'total_loans'     => Loan::count(),
-            'active_loans'    => Loan::where('status_peminjaman', 'borrowed')->count(),
-            'returned_loans'  => Loan::where('status_peminjaman', 'returned')->count(),
+            'active_loans'    => Loan::where('status_peminjaman', 'dipinjam')->count(),
+            'dikembalikan_loans'  => Loan::where('status_peminjaman', 'dikembalikan')->count(),
             'total_item_qty'  => Item::sum('stok'),
         ];
 

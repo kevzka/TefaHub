@@ -130,7 +130,7 @@
                                         {{ $loan->loan_date ? \Carbon\Carbon::parse($loan->loan_date)->format('d M Y') : '-' }}
                                     </td>
                                     <td class="px-6 py-3.5 whitespace-nowrap text-center">
-                                        @if ($loan->status === 'borrowed')
+                                        @if ($loan->status === 'dipinjam')
                                             <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-900/50 dark:text-amber-400">
                                                 <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                                                 Dipinjam

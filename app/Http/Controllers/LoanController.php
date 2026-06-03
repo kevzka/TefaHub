@@ -49,7 +49,7 @@ class LoanController extends Controller
     {
         $users = User::all();
         $items = Item::all();
-        $statuses = ['borrowed', 'returned'];
+        $statuses = ['dipinjam', 'dikembalikan', 'terlambat'];
         return view("admin.loans.create", compact('statuses', 'users', 'items'));
     }
 
@@ -64,8 +64,11 @@ class LoanController extends Controller
             "amount" => "required|integer|min:1",
             "loan_date" => "required|date",
             "return_date" => "required|date",
-            "status" => "required|in:borrowed,returned",
+            "status" => "required|in:dipinjam,dikembalikan",
         ]);
+        if (Item::find($request['item_id'])->amount - $request['amount'] < 0) {
+            return redirect()->back()->with('success', 'Not enough stock for this item');
+        }
         Loan::create([
             'user_id' => $request['user_id'],
             'item_id' => $request['item_id'],
@@ -74,7 +77,7 @@ class LoanController extends Controller
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
-        if ($request['status'] == 'borrowed') {
+        if ($request['status'] == 'dipinjam') {
             Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount - $request['amount'], 'status' => Item::find($request['item_id'])->amount - $request['amount'] > 0 ? 'available' : 'not available']);
         }
         return redirect()->route('admin.loans.index')->with('success', 'loan added successfully');
@@ -95,7 +98,7 @@ class LoanController extends Controller
     {
         $users = User::all();
         $items = Item::all();
-        $statuses = ['borrowed', 'returned'];
+        $statuses = ['dipinjam', 'dikembalikan', 'terlambat'];
         $loan->load(['user', 'item']);
         return view('admin.loans.edit', compact('loan', 'statuses', 'users', 'items'));
     }
@@ -114,7 +117,7 @@ class LoanController extends Controller
             "amount" => "required|integer|min:1",
             "loan_date" => "required|date",
             "return_date" => "required|date",
-            "status" => "required|in:borrowed,returned",
+            "status" => "required|in:dipinjam,dikembalikan,terlambat",
         ]);
         $loan->update([
             'user_id' => $request['user_id'],
@@ -124,7 +127,7 @@ class LoanController extends Controller
             'return_date' => $request['return_date'],
             'status' => $request['status'],
         ]);
-        if ($request['status'] == 'returned') {
+        if ($request['status'] == 'dikembalikan' || $request['status'] == 'terlambat') {
             Item::find($request['item_id'])->update(['amount' => Item::find($request['item_id'])->amount + $request['amount'], 'status' => 'available']);
         }
         return redirect()->route('admin.loans.index')->with('success', 'loan updated successfully');

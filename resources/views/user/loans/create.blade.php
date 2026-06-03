@@ -1,4 +1,7 @@
 <x-app-layout>
+    @if (session('success'))
+    <script>alert("{{ session('success') }}")</script>
+@endif
     <div class="py-10 bg-slate-100 dark:bg-slate-900 min-h-screen">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
             <div class="grid gap-6 lg:grid-cols-[1.6fr_0.9fr]">
@@ -123,7 +126,7 @@
 
                     <label class="block">
                         <span class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Status</span>
-                        <input type="text" name="status" value="borrowed"
+                        <input type="text" name="status" value="dipinjam"
                             class="w-full rounded-xl border-slate-300 bg-white px-4 py-3 text-sm shadow-sm focus:border-slate-900 focus:ring-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
                             readonly>
                         @if (Auth::user()->is_admin)

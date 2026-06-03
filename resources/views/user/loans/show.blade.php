@@ -11,7 +11,8 @@
                         <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Detail Peminjaman</h1>
                         <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-300">
                             Ringkasan informasi peminjaman untuk barang {{ $loan->item->name }} oleh
-                            {{ $loan->user->name }}. sebanyak {{ $loan->amount }} unit dengan status {{ $loan->status }}.
+                            {{ $loan->user->name }}. sebanyak {{ $loan->amount }} unit dengan status
+                            {{ $loan->status }}.
                         </p>
                     </div>
 
@@ -59,11 +60,19 @@
                         <div>
                             <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Status</p>
                             <p
-                                class="mt-2 text-3xl font-bold tracking-tight {{ $loan->status === 'borrowed' ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400' }}">
+                                class="mt-2 text-3xl font-bold tracking-tight {{ match ($loan->status) {
+                                    'terlambat' => 'text-rose-600 dark:text-rose-400',
+                                    'dipinjam' => 'text-amber-600 dark:text-amber-400',
+                                    default => 'text-emerald-600 dark:text-emerald-400',
+                                } }}">
                                 {{ ucfirst($loan->status) }}</p>
                         </div>
                         <div
-                            class="rounded-2xl {{ $loan->status === 'borrowed' ? 'bg-amber-50 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400' : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400' }} p-3">
+                            class="rounded-2xl p-3 {{ match ($loan->status) {
+                                'terlambat' => 'bg-rose-50 text-rose-600 dark:bg-rose-900/50 dark:text-rose-400',
+                                'dipinjam' => 'bg-amber-50 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400',
+                                default => 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400',
+                            } }}">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />

@@ -11,7 +11,8 @@
                         <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl">Detail Peminjaman</h1>
                         <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-300">
                             Ringkasan informasi peminjaman untuk barang {{ $loan->item->name }} oleh
-                            {{ $loan->user->name }}.
+                            {{ $loan->user->name }}. sebanyak {{ $loan->amount }} unit dengan status
+                            {{ $loan->status }}.
                         </p>
                     </div>
 
@@ -59,11 +60,19 @@
                         <div>
                             <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Status</p>
                             <p
-                                class="mt-2 text-3xl font-bold tracking-tight {{ $loan->status === 'borrowed' ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400' }}">
+                                class="mt-2 text-3xl font-bold tracking-tight {{ match ($loan->status) {
+                                    'terlambat' => 'text-rose-600 dark:text-rose-400',
+                                    'dipinjam' => 'text-amber-600 dark:text-amber-400',
+                                    default => 'text-emerald-600 dark:text-emerald-400',
+                                } }}">
                                 {{ ucfirst($loan->status) }}</p>
                         </div>
                         <div
-                            class="rounded-2xl {{ $loan->status === 'borrowed' ? 'bg-amber-50 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400' : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400' }} p-3">
+                            class="rounded-2xl p-3 {{ match ($loan->status) {
+                                'terlambat' => 'bg-rose-50 text-rose-600 dark:bg-rose-900/50 dark:text-rose-400',
+                                'dipinjam' => 'bg-amber-50 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400',
+                                default => 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400',
+                            } }}">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -84,11 +93,13 @@
                 <div class="grid gap-6 p-6 md:grid-cols-2">
                     <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
                         <p class="text-sm text-slate-500 dark:text-slate-400">Nama User</p>
-                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $loan->user->name }}</p>
+                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $loan->user->name }}
+                        </p>
                     </div>
                     <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
                         <p class="text-sm text-slate-500 dark:text-slate-400">Nama Item</p>
-                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $loan->item->name }}</p>
+                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{{ $loan->item->name }}
+                        </p>
                     </div>
                     <div class="rounded-2xl bg-slate-50 p-5 dark:bg-slate-900/50">
                         <p class="text-sm text-slate-500 dark:text-slate-400">Loan Date</p>
@@ -101,10 +112,21 @@
                     </div>
                     <div class="rounded-2xl bg-slate-50 p-5 md:col-span-2 dark:bg-slate-900/50">
                         <p class="text-sm text-slate-500 dark:text-slate-400">Status</p>
+
                         <span
-                            class="mt-2 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold {{ $loan->status === 'borrowed' ? 'bg-amber-50 text-amber-800 dark:bg-amber-900/50 dark:text-amber-400' : 'bg-emerald-50 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-400' }}">
+                            class="mt-2 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold {{ match ($loan->status) {
+                                'terlambat' => 'bg-rose-50 text-rose-800 dark:bg-rose-900/50 dark:text-rose-400',
+                                'dipinjam' => 'bg-amber-50 text-amber-800 dark:bg-amber-900/50 dark:text-amber-400',
+                                default => 'bg-emerald-50 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-400',
+                            } }}">
+
                             <span
-                                class="h-1.5 w-1.5 rounded-full {{ $loan->status === 'borrowed' ? 'bg-amber-500' : 'bg-emerald-500' }}"></span>
+                                class="h-1.5 w-1.5 rounded-full {{ match ($loan->status) {
+                                    'terlambat' => 'bg-rose-500 animate-pulse',
+                                    'dipinjam' => 'bg-amber-500',
+                                    default => 'bg-emerald-500',
+                                } }}"></span>
+
                             {{ ucfirst($loan->status) }}
                         </span>
                     </div>

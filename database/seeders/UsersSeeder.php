@@ -16,7 +16,7 @@ class UsersSeeder extends Seeder
     {
         User::insert([
             [
-                'nama_peminjam' => 'Muhammad Rafli',
+                'nama_peminjam' => 'Ahmad Fauzan',
                 'kelas' => 'XII PPLG 1',
                 'jurusan' => 'PPLG',
                 'no_hp' => '081234567801',
@@ -27,8 +27,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'nama_peminjam' => 'Siti Aminah',
-                'kelas' => 'XII PPLG 1',
+                'nama_peminjam' => 'Rizky Pratama',
+                'kelas' => 'XII PPLG 2',
                 'jurusan' => 'PPLG',
                 'no_hp' => '081234567802',
                 'role' => 'user',
@@ -38,8 +38,8 @@ class UsersSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'nama_peminjam' => 'Budi Setiawan',
-                'kelas' => 'XII PPLG 2',
+                'nama_peminjam' => 'Dinda putri',
+                'kelas' => 'XII PPLG 1',
                 'jurusan' => 'PPLG',
                 'no_hp' => '081234567803',
                 'role' => 'user',

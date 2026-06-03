@@ -27,9 +27,9 @@
                         <x-nav-link :href="route('admin.loans.index')" :active="request()->routeIs('admin.loans.index')">
                             {{ __('Loans') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+                        {{-- <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
                             {{ __('Users') }}
-                        </x-nav-link>
+                        </x-nav-link> --}}
                         <x-nav-link :href="route('admin.items.index')" :active="request()->routeIs('admin.items.index')">
                             {{ __('Items') }}
                         </x-nav-link>

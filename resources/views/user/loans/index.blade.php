@@ -63,7 +63,7 @@
                             <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Status Aktif (Dipinjam)
                             </p>
                             <p class="mt-2 text-3xl font-bold tracking-tight text-amber-600 dark:text-amber-400">
-                                {{ number_format($loans->where('status', 'borrowed')->count()) }}
+                                {{ number_format($loans->where('status', 'dipinjam')->count()) }}
                             </p>
                         </div>
                         <div
@@ -80,31 +80,42 @@
             <div
                 class="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
                 <div class="border-b border-slate-100 px-6 py-5 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
-                    <form action="{{ url()->current() }}" method="GET" class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <form action="{{ url()->current() }}" method="GET"
+                        class="flex flex-col gap-3 sm:flex-row sm:items-center">
                         <div class="relative flex-1">
-                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 dark:text-slate-500">
+                            <div
+                                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 dark:text-slate-500">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama peminjam atau nama barang..." class="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 py-2 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:focus:border-indigo-500">
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="Cari nama peminjam atau nama barang..."
+                                class="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 py-2 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:focus:border-indigo-500">
                         </div>
 
                         <div class="w-full sm:w-48">
-                            <select name="status" onchange="this.form.submit()" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm transition focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:focus:border-indigo-500">
+                            <select name="status" onchange="this.form.submit()"
+                                class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm transition focus:border-indigo-500 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:focus:border-indigo-500">
                                 <option value="">Semua Status</option>
                                 @foreach ($statuses as $status)
-                                    <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                                    <option value="{{ $status }}"
+                                        {{ request('status') === $status ? 'selected' : '' }}>{{ ucfirst($status) }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="flex items-center gap-2">
-                            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-slate-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 transition dark:bg-indigo-600 dark:hover:bg-indigo-500">
+                            <button type="submit"
+                                class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-slate-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 transition dark:bg-indigo-600 dark:hover:bg-indigo-500">
                                 Cari
                             </button>
                             @if (request('search') || request('status'))
-                                <a href="{{ url()->current() }}" class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-500 shadow-sm hover:bg-slate-50 hover:text-slate-700 transition dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-200 dark:hover:bg-slate-700" title="Reset Filter">
+                                <a href="{{ url()->current() }}"
+                                    class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-500 shadow-sm hover:bg-slate-50 hover:text-slate-700 transition dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-200 dark:hover:bg-slate-700"
+                                    title="Reset Filter">
                                     Reset
                                 </a>
                             @endif
@@ -147,6 +158,7 @@
                                 <th class="px-6 py-3.5 text-center w-12">No</th>
                                 <th class="px-6 py-3.5">Nama Peminjam</th>
                                 <th class="px-6 py-3.5">Barang</th>
+                                <th class="px-6 py-3.5">Jumlah</th>
                                 <th class="px-6 py-3.5">Tgl Pinjam</th>
                                 <th class="px-6 py-3.5">Tgl Kembali</th>
                                 <th class="px-6 py-3.5 text-center w-28">Status</th>
@@ -174,20 +186,30 @@
                                             {{ $loan->item->name }}
                                         </span>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300">
+                                        {{ $loan->amount }}
+                                    </td>
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300 font-medium">
                                         {{ $loan->loan_date ? \Carbon\Carbon::parse($loan->loan_date)->format('d M Y') : '-' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300">
-                                        {{ $loan->return_date ? \Carbon\Carbon::parse($loan->return_date)->format('d M Y') : ($loan->status === 'borrowed' ? 'Belum Kembali' : '-') }}
+                                        {{ $loan->return_date ? \Carbon\Carbon::parse($loan->return_date)->format('d M Y') : ($loan->status === 'dipinjam' ? 'Belum Kembali' : '-') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
-                                        @if ($loan->status === 'borrowed')
+                                        @if ($loan->status === 'dipinjam')
                                             <span
                                                 class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-800 dark:bg-amber-900/50 dark:text-amber-400">
                                                 <span
                                                     class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                                                 Dipinjam
+                                            </span>
+                                        @elseif ($loan->status === 'terlambat')
+                                            <span
+                                                class="inline-flex items-center gap-1.5 rounded-full bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-800 dark:bg-rose-900/30 dark:text-rose-400">
+                                                <span
+                                                    class="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                                                Terlambat
                                             </span>
                                         @else
                                             <span
@@ -247,9 +269,12 @@
                                 <tr>
                                     <td colspan="7" class="px-6 py-16 text-center">
                                         <div class="flex flex-col items-center justify-center gap-2">
-                                            <div class="rounded-full bg-slate-100 p-3 dark:bg-slate-700 text-slate-400">
-                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            <div
+                                                class="rounded-full bg-slate-100 p-3 dark:bg-slate-700 text-slate-400">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
                                                         d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5a2 2 0 012-2h2a2 2 0 002-2V8a2 2 0 012-2h2a2 2 0 012 2v3a2 2 0 002 2h2a2 2 0 012 2z" />
                                                 </svg>
                                             </div>
